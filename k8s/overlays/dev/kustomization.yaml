@@ -9,7 +9,7 @@ namePrefix: dev-
 commonLabels:
   env: development
 
-# Giorno 1 & 5: Patching per repliche e security (non-root)
+# Giorno 1 & 5: Patching per repliche (Abbiamo rimosso il securityContext per risolvere il Permission Denied)
 patches:
 - target:
     kind: Deployment
@@ -18,7 +18,3 @@ patches:
     - op: replace
       path: /spec/replicas
       value: 2
-    - op: add
-      path: /spec/template/spec/securityContext
-      value:
-        runAsUser: 1000
