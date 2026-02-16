@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-tigre
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tigre
+  template:
+    metadata:
+      labels:
+        app: tigre
+    spec:
+      containers:
+      - name: main
+        image: nginx:1.21 # La nostra immagine prodotta dalla CI
+        ports:
+        - containerPort: 80

@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+- ../../base
+
+# Giorno 1: commonLabels e namePrefix
+namePrefix: dev-
+commonLabels:
+  env: development
+
+# Giorno 1 & 5: Patching per repliche e security (non-root)
+patches:
+- target:
+    kind: Deployment
+    name: app-tigre
+  patch: |-
+    - op: replace
+      path: /spec/replicas
+      value: 2
+    - op: add
+      path: /spec/template/spec/securityContext
+      value:
+        runAsUser: 1000
